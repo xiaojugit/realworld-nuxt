@@ -2,6 +2,9 @@
  * Nuxt.js 配置
  */
 export default {
+  server: {
+    host: '0.0.0.0'
+  },
   router: {
     linkActiveClass: 'active',
     extendRoutes (routes, resolve) {
