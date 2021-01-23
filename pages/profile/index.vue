@@ -10,7 +10,7 @@
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
               &nbsp;
-              Follow Eric Simons
+              Follow Eric Simon
             </button>
           </div>
         </div>

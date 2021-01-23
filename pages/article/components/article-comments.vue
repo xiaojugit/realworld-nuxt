@@ -2,7 +2,11 @@
   <div>
     <form class="card comment-form">
       <div class="card-block">
-        <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
+        <textarea
+          class="form-control"
+          placeholder="Write a comment..."
+          rows="3"
+        ></textarea>
       </div>
       <div class="card-footer">
         <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
@@ -19,24 +23,33 @@
           :to="{
             name: 'profile',
             params: {
-              username: comment.author.username
-            }
+              username: comment.author.username,
+            },
           }"
           class="comment-author"
         >
-          <img :src="comment.author.image" class="comment-author-img" />
-        </nuxt-link>&nbsp;
+          <img
+            :src="comment.author.image"
+            class="comment-author-img"
+          /> </nuxt-link
+        >&nbsp;
         <nuxt-link
           :to="{
             name: 'profile',
             params: {
-              username: comment.author.username
-            }
+              username: comment.author.username,
+            },
           }"
           class="comment-author"
-        >{{ comment.author.username }}</nuxt-link>
-        <span class="date-posted">{{ comment.createdAt | date('MMM DD, YYYY')}}</span>
-        <span class="mod-options" v-if="user.username === comment.author.username">
+          >{{ comment.author.username }}</nuxt-link
+        >
+        <span class="date-posted">{{
+          comment.createdAt | date("MMM DD, YYYY")
+        }}</span>
+        <span
+          class="mod-options"
+          v-if="user.username === comment.author.username"
+        >
           <i class="ion-edit"></i>
           <i class="ion-trash-a"></i>
         </span>
@@ -46,7 +59,7 @@
 </template>
 
 <script>
-import { getArticle, getArticleComments } from '@/api/article'
+import { getArticleComments } from '@/api/article'
 import { mapState } from 'vuex'
 
 export default {
