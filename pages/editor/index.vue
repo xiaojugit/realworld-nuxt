@@ -60,19 +60,14 @@
 </template>
 
 <script>
-import { createArticle, updateArticle } from '@/api/article'
+import { createArticle, updateArticle, getArticle } from '@/api/article'
 
 export default {
   middleware: ['authenticated'],
   name: 'EditorIndex',
-  props: {
-    articleData: {
-      type: Object,
-      default: () => new Object()
-    }
-  },
   data () {
     return {
+      slug: '',
       errors: {},
       tagsStr: '',
       article: {
@@ -88,8 +83,8 @@ export default {
       this.article.tagList = this.tagsStr.split(';').filter(v => v)
     },
     submitHandler () {
-      if (this.articleData.slug) {
-        updateArticle(this.articleData.slug, { article: this.article }).catch(error => {
+      if (this.slug) {
+        updateArticle(this.slug, { article: this.article }).catch(error => {
           this.errors = error.response.data.errors
         })
       } else {
@@ -97,24 +92,46 @@ export default {
           this.errors = error.response.data.errors
         })
       }
+    },
+    async init () {
+      if (this.slug) {
+        const { data } = await getArticle(this.slug)
+        const {
+          title,
+          description,
+          body,
+          tagList
+        } = data.article
+
+        this.article = {
+          title,
+          description,
+          body,
+          tagList
+        }
+        this.tagsStr = tagList.join(';')
+      } else {
+        this.article = {
+          title: '',
+          description: '',
+          body: '',
+          tagList: ''
+        }
+        this.tagsStr = ''
+      }
+    }
+  },
+  watch: {
+    '$route': {
+      handler: function (route) {
+        this.slug = route.params.slug
+        this.init()
+      }
     }
   },
   created () {
-    if (this.articleData.slug) {
-      const {
-        title,
-        description,
-        body,
-        tagList
-      } = this.articleData
-
-      this.article = {
-        title,
-        description,
-        body,
-        tagList
-      }
-    }
+    this.slug = this.$route.params.slug
+    this.init()
   }
 }
 </script>

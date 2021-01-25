@@ -30,3 +30,32 @@ export const register = data => {
     data
   })
 }
+
+export const updateUser = data => {
+  return request({
+    method: 'put',
+    url: '/api/user',
+    data
+  })
+}
+
+export const getProfile = username => {
+  return request({
+    method: 'get',
+    url: `/api/profiles/${username}`
+  })
+}
+
+export const followUser = username => {
+  return request({
+    method: 'post',
+    url: `/api/profiles/${username}/follow`
+  })
+}
+
+export const unfollowUser = username => {
+  return request({
+    method: 'delete',
+    url: `/api/profiles/${username}/follow`
+  })
+}
