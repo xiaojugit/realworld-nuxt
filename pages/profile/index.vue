@@ -193,7 +193,7 @@ export default {
   watch: {
     '$route': {
       handler: function (route) {
-        this.loadArticles(route.query.tab)
+        this.loadArticles(route.query.tab || this.tab || 'author')
       }
     }
   },
